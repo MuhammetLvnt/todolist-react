@@ -41,7 +41,6 @@ const Header = () => {
     <AppBar color="transparent" position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          {/* <Link to="/"> */}
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
@@ -60,7 +59,6 @@ const Header = () => {
           >
             ToDoApp
           </Typography>
-          {/* </Link> */}
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -68,39 +66,14 @@ const Header = () => {
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
-              // onClick={handleOpenNavMenu}
               color="inherit"
             >
-              <MenuIcon />
+              <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
             </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+
           <Typography
-            variant="h5"
+            variant="h6"
             noWrap
             component="a"
             href=""
@@ -115,22 +88,16 @@ const Header = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            {localStorage.getItem("username") ? (
+              localStorage.getItem("username")
+            ) : (
+              <Link style={{ textDecoration: "none" }} to="/">
+                {" "}
+                Giriş
+              </Link>
+            )}
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <TextField
-              fullWidth
-              color="primary"
-              label="add todo"
-              id="fullWidth"
-              // placeholder="enter todo"
-            />
-            <Stack spacing={2} direction="row">
-              <Button variant="outlined">
-                <AddTaskIcon />
-              </Button>
-            </Stack>
-          </Box>
+
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
@@ -141,22 +108,11 @@ const Header = () => {
                 {page}
               </Button>
             ))}
-
-            {/* <Box
-              sx={{
-                width: 500,
-                maxWidth: "100%",
-              }}
-            > */}
-
-            {/* </Box> */}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Typography
               variant="h6"
               noWrap
-              // component="a"
-              // href="/"
               sx={{
                 mr: 2,
                 display: { xs: "none", md: "flex" },
@@ -176,7 +132,7 @@ const Header = () => {
             <Button
               onClick={() => {
                 localStorage.removeItem("username");
-                navigate("/login", { replace: true });
+                navigate("/", { replace: true });
               }}
             >
               <LogoutIcon></LogoutIcon>
